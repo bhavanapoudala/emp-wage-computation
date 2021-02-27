@@ -3,11 +3,15 @@
 
 isFullTime=1
 isPartTime=2
-totalSalary=0
 Wage_per_hr=20
-Num_of_working_days=30
-for (( day=1; day<=$Num_of_working_days; day++ ))
+limited_Num_of_working_days=20
+limited_working_hrs=100
+
+total_working_hrs=0
+total_working_days=0
+while [[ $total_working_days -lt $limited_Num_of_working_days && $total_working_hrs -lt $limited_working_hrs ]]
 do
+   ((total_working_days++))
    empCheck=$((RANDOM%3));
 	case $empCheck in
 		$isFullTime)
@@ -20,12 +24,13 @@ do
 		empHrs=0
 			;;
 	esac
-
-	Daily_wage=$(( $Wage_per_hr*$empHrs ))
-	totalSalary=$(($Daily_wage+$totalSalary))
+	total_working_hrs=$(( $total_working_hrs+$empHrs ))
 
 done
-echo "Total salary of an Employee in a month: " $totalSalary
+
+totalSalary=$(($total_working_hrs*$Wage_per_hr))
+echo $totalSalary
+
 
 
 
