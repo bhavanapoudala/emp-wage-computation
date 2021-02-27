@@ -9,11 +9,9 @@ limited_working_hrs=100
 
 total_working_hrs=0
 total_working_days=0
-while [[ $total_working_days -lt $limited_Num_of_working_days && $total_working_hrs -lt $limited_working_hrs ]]
-do
-   ((total_working_days++))
-   empCheck=$((RANDOM%3));
-	case $empCheck in
+  
+function get_Work_hrs() {
+	case $1 in
 		$isFullTime)
 			empHrs=8
 			;;
@@ -24,8 +22,15 @@ do
 		empHrs=0
 			;;
 	esac
-	total_working_hrs=$(( $total_working_hrs+$empHrs ))
+	echo $empHrs
+}
 
+while [[ $total_working_hrs -lt $limited_working_hrs &&
+			$total_working_days -lt $limited_Num_of_working_days ]]
+do
+		((total_working_days++))
+		empHrs="$( get_Work_hrs $((RANDOM%3)) )"
+		total_working_hrs=$(($total_working_hrs+$empHrs))
 done
 
 totalSalary=$(($total_working_hrs*$Wage_per_hr))
