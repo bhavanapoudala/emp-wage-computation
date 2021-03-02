@@ -9,6 +9,8 @@ limited_working_hrs=100
 
 total_working_hrs=0
 total_working_days=0
+
+declare -A dailyWage
   
 function get_Work_hrs() {
 	case $1 in
@@ -43,8 +45,9 @@ do
 done
 
 totalSalary=$(($total_working_hrs*$Wage_per_hr))
-echo $totalSalary
-echo ${dailyWage[@]}
+echo total salary $totalSalary
+echo Daily wages ${dailyWage[@]}
+echo All keys ${!dailyWage[@]}
 
 
 
